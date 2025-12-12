@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Warehousing & Supply Chain Solutions</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Poppins Font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Load Lucide Icons for minimal aesthetic -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Configure Tailwind with custom colors and font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#005A8D', // Deep, professional blue (Trust)
+                        'accent-green': '#2ECC71', // Clean, bright green (Growth/Tech)
+                        'bg-gray': '#F8F9FA', // Soft neutral background
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'], // UPDATED FONT
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Apply Poppins font globally and ensure smooth scrolling */
+        body {
+            font-family: 'Poppins', sans-serif; /* UPDATED FONT */
+            scroll-behavior: smooth;
+            background-color: #ffffff;
+        }
+        /* Custom class for the subtle background grid/lines in the Hero */
+        .hero-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 90, 141, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            /* Add subtle opacity to the globe SVG for the network feel */
+        }
+        .network-lines {
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+        /* Style for the comparison checkmark/cross */
+        .compare-check { color: #2ECC71; }
+        .compare-cross { color: #005A8D; opacity: 0.5; }
+
+        /* Icon wrapper styling for better placement */
+        .icon-wrapper {
+            display: inline-flex;
+            width: 2rem;
+            height: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Styling for the Accordion structure */
+        .service-accordion-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .service-accordion-item:hover {
+            background-color: #f0f3f6;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+        }
+        .accordion-content.active {
+            max-height: 1000px; /* Large enough value */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation (Minimal) -->
+    <header class="container mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+            <!-- Logo (Placeholder reflecting the company name "We Handle It") -->
+            <div class="flex items-center">
+                <img src="https://placehold.co/160x40/005A8D/FFFFFF?font=Poppins&text=WE+HANDLE+IT" alt="Company Logo: We Handle It" class="h-8 rounded-lg shadow-sm">
+            </div>
+            <!-- Navigation -->
+            <nav class="space-x-8 hidden sm:block">
+                <a href="#hero" class="text-gray-600 hover:text-primary-blue transition duration-150 font-medium">Home</a>
+                <a href="#in-home" class="text-primary-blue font-semibold border-b-2 border-accent-green pb-1">Solutions</a>
+                <a href="#" class="text-gray-600 hover:text-primary-blue transition duration-150 font-medium">About</a>
+                <a href="#contact" class="text-gray-600 hover:text-primary-blue transition duration-150 font-medium">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section id="hero" class="hero-bg relative pt-24 pb-32 overflow-hidden border-b border-gray-100">
+        <!-- Subtle network grid illustration -->
+        <div class="absolute inset-0 z-0 flex items-center justify-center">
+            <svg class="network-lines w-4/5 h-4/5 text-primary-blue" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="500" cy="250" r="200" stroke="currentColor" stroke-width="1" stroke-dasharray="10 10"/>
+                <line x1="100" y1="150" x2="900" y2="350" stroke="currentColor" stroke-width="1" stroke-dasharray="10 10"/>
+                <line x1="100" y1="350" x2="900" y2="150" stroke="currentColor" stroke-width="1" stroke-dasharray="10 10"/>
+                <path d="M 50 250 C 300 50 700 450 950 250" stroke="currentColor" stroke-width="1" stroke-dasharray="5 5"/>
+            </svg>
+        </div>
+        
+        <div class="relative z-10 text-center container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+            <!-- Title -->
+            <h1 class="text-6xl md:text-7xl font-extrabold text-primary-blue tracking-tight leading-tight mb-6">
+                Complete Warehousing & Supply Chain Solutions
+            </h1>
+            <!-- Subtext (Updated Tagline) -->
+            <p class="text-xl md:text-2xl text-gray-600 font-light max-w-3xl mx-auto">
+                We handle it—safe, swift, and stored.
+            </p>
+        </div>
+    </section>
+
+    <!-- 2. Service Overview Grid (3x3) -->
+    <section id="in-home" class="py-24 bg-bg-gray">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center text-primary-blue mb-16">Our Core Solutions</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Service Card Component (Reusable) -->
+                <div id="card-flexi" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('flexi')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="warehouse" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Flexi-Warehousing</h3>
+                    <p class="text-gray-500 font-light text-sm">On-demand space that scales instantly with market demands.</p>
+                </div>
+
+                <div id="card-ops" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('ops')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="cog" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Warehouse Operations</h3>
+                    <p class="text-gray-500 font-light text-sm">Optimizing layout, process, and performance for efficiency.</p>
+                </div>
+                
+                <div id="card-dark" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('dark')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="store" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Dark Stores</h3>
+                    <p class="text-gray-500 font-light text-sm">Dedicated urban hubs for hyper-local, rapid order fulfillment.</p>
+                </div>
+                
+                <div id="card-ecommerce" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('ecommerce')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="package" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">E-Commerce Fulfillment</h3>
+                    <p class="text-gray-500 font-light text-sm">Seamless WMS integration for high-volume, multi-channel processing.</p>
+                </div>
+                
+                <div id="card-inventory" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('inventory')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Inventory Management</h3>
+                    <p class="text-gray-500 font-light text-sm">Real-time visibility and control to minimize errors and stockouts.</p>
+                </div>
+
+                <div id="card-retail" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('retail')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="shopping-bag" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Retail Distribution</h3>
+                    <p class="text-gray-500 font-light text-sm">Reliable transport and last-mile delivery to brick-and-mortar stores.</p>
+                </div>
+                
+                <div id="card-logistics" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('logistics')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="send" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Full-Stack Logistics</h3>
+                    <p class="text-gray-500 font-light text-sm">End-to-end management from inbound freight to final delivery.</p>
+                </div>
+                
+                <div id="card-bts" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('bts')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="construction" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Built-To-Suit (BTS)</h3>
+                    <p class="text-gray-500 font-light text-sm">Custom design and construction of dedicated logistics facilities.</p>
+                </div>
+                
+                <div id="card-compliance" class="solution-card bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-accent-green cursor-pointer" onclick="toggleAccordion('compliance')">
+                    <div class="icon-wrapper bg-primary-blue/10 rounded-lg mb-4">
+                        <i data-lucide="users" class="w-6 h-6 text-primary-blue"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-2">Manpower & Compliance</h3>
+                    <p class="text-gray-500 font-light text-sm">Certified, trained labor and adherence to all regulatory standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Detailed Service Sections (Accordion/Cards) -->
+    <section class="py-24">
+        <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center text-primary-blue mb-16">In-Depth Service Breakdown</h2>
+
+            <!-- Accordion Container -->
+            <div class="rounded-xl border border-gray-200 divide-y divide-gray-200">
+
+                <!-- Accordion Item: E-Commerce Fulfillment -->
+                <div class="service-accordion-item p-6 md:p-8 flex justify-between items-center" data-target="ecommerce-details">
+                    <div class="flex items-center space-x-4">
+                        <i data-lucide="package" class="w-8 h-8 text-primary-blue"></i>
+                        <span class="text-xl font-semibold text-primary-blue">E-Commerce Fulfillment</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transform transition-transform duration-300"></i>
+                </div>
+                <div id="ecommerce-details" class="accordion-content bg-white">
+                    <div class="px-6 md:px-8">
+                        <p class="text-gray-600 mb-6 font-light text-lg max-w-4xl">
+                            We offer industry-leading e-commerce fulfillment, integrating directly with your online storefronts to manage everything from picking and packing to last-mile carrier handoffs, ensuring fast, accurate, and scalable operations during peak seasons.
+                        </p>
+                        
+                        <h4 class="text-lg font-semibold text-primary-blue mb-3">Key Features</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2 mb-8 ml-4">
+                            <li><span class="font-medium">Direct WMS Integration:</span> Real-time data sync with all major e-commerce platforms.</li>
+                            <li><span class="font-medium">Multi-Channel Support:</span> Handle orders from your website, Amazon, eBay, and social commerce platforms.</li>
+                            <li><span class="font-medium">Automated Returns:</span> Streamlined reverse logistics process for customer satisfaction.</li>
+                            <li><span class="font-medium">Custom Packaging:</span> Branded, high-quality packaging options.</li>
+                        </ul>
+
+                        <h4 class="text-lg font-semibold text-primary-blue mb-3">Performance Metrics</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="p-3 bg-accent-green/10 rounded-lg text-center">
+                                <p class="text-2xl font-bold text-accent-green">99.8%</p>
+                                <p class="text-xs text-gray-600 font-medium">Accuracy Rate</p>
+                            </div>
+                            <div class="p-3 bg-accent-green/10 rounded-lg text-center">
+                                <p class="text-2xl font-bold text-accent-green">48-Hour</p>
+                                <p class="text-xs text-gray-600 font-medium">Activation Time</p>
+                            </div>
+                            <div class="p-3 bg-accent-green/10 rounded-lg text-center">
+                                <p class="text-2xl font-bold text-accent-green">99.9%</p>
+                                <p class="text-xs text-gray-600 font-medium">Uptime Guarantee</p>
+                            </div>
+                            <div class="p-3 bg-accent-green/10 rounded-lg text-center">
+                                <p class="text-2xl font-bold text-accent-green">< 2%</p>
+                                <p class="text-xs text-gray-600 font-medium">Return Processing Time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion Item: Flexi-Warehousing -->
+                <div class="service-accordion-item p-6 md:p-8 flex justify-between items-center" data-target="flexi-details">
+                    <div class="flex items-center space-x-4">
+                        <i data-lucide="warehouse" class="w-8 h-8 text-primary-blue"></i>
+                        <span class="text-xl font-semibold text-primary-blue">Flexi-Warehousing</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transform transition-transform duration-300"></i>
+                </div>
+                <div id="flexi-details" class="accordion-content bg-white">
+                    <div class="px-6 md:px-8">
+                        <p class="text-gray-600 mb-6 font-light text-lg max-w-4xl">
+                            Our flexible warehousing solution eliminates long-term commitments and fixed costs. Access prime storage locations and infrastructure on a variable, pay-per-use basis, allowing you to easily manage inventory fluctuations without penalties.
+                        </p>
+                        
+                        <h4 class="text-lg font-semibold text-primary-blue mb-3">Key Features</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2 mb-8 ml-4">
+                            <li><span class="font-medium">On-Demand Capacity:</span> Scale storage footprint monthly or quarterly.</li>
+                            <li><span class="font-medium">Prime Location Network:</span> Access facilities strategically located near major transport hubs.</li>
+                            <li><span class="font-medium">Total Cost Visibility:</span> Clear, transparent pricing with no hidden fees.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Accordion Item: Full-Stack Logistics -->
+                <div class="service-accordion-item p-6 md:p-8 flex justify-between items-center" data-target="logistics-details">
+                    <div class="flex items-center space-x-4">
+                        <i data-lucide="send" class="w-8 h-8 text-primary-blue"></i>
+                        <span class="text-xl font-semibold text-primary-blue">Full-Stack Logistics</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-6 h-6 text-gray-400 transform transition-transform duration-300"></i>
+                </div>
+                <div id="logistics-details" class="accordion-content bg-white">
+                    <div class="px-6 md:px-8">
+                        <p class="text-gray-600 mb-6 font-light text-lg max-w-4xl">
+                            We provide comprehensive, end-to-end management of your entire supply chain, integrating all warehousing, transport, and customs operations under one tech-enabled platform for maximum control and efficiency.
+                        </p>
+                        
+                        <h4 class="text-lg font-semibold text-primary-blue mb-3">Key Features</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2 mb-8 ml-4">
+                            <li><span class="font-medium">Single Point of Contact:</span> Consolidated account management for all services.</li>
+                            <li><span class="font-medium">Integrated Visibility:</span> Track inventory and shipments across all touchpoints in real-time.</li>
+                            <li><span class="font-medium">Custom Route Optimization:</span> AI-driven planning for fastest and most cost-effective delivery routes.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 4. Comparison Block -->
+    <section id="comparison" class="py-24 bg-bg-gray border-t border-gray-200">
+        <div class="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center text-primary-blue mb-16">The Shift to Scalable Logistics</h2>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <!-- Table Header -->
+                    <thead>
+                        <tr class="text-lg font-semibold text-primary-blue bg-bg-gray/50">
+                            <th scope="col" class="px-6 py-4 text-left">Feature</th>
+                            <th scope="col" class="px-6 py-4 text-center">Traditional Warehousing</th>
+                            <th scope="col" class="px-6 py-4 text-center border-l border-gray-200">On-Demand Warehousing (Our Solution)</th>
+                        </tr>
+                    </thead>
+                    <!-- Table Body -->
+                    <tbody class="divide-y divide-gray-100 text-gray-700">
+                        
+                        <!-- Row 1: Commitment -->
+                        <tr class="hover:bg-gray-50 transition duration-150">
+                            <td class="px-6 py-4 font-medium text-primary-blue/90">Commitment</td>
+                            <td class="px-6 py-4 text-center">Long-term leases (5+ years)</td>
+                            <td class="px-6 py-4 text-center border-l border-gray-200 font-semibold text-accent-green">Flexible, month-to-month contracts</td>
+                        </tr>
+                        
+                        <!-- Row 2: Scalability -->
+                        <tr class="hover:bg-gray-50 transition duration-150">
+                            <td class="px-6 py-4 font-medium text-primary-blue/90">Scalability</td>
+                            <td class="px-6 py-4 text-center">
+                                <i data-lucide="x" class="compare-cross w-6 h-6 mx-auto"></i> Fixed space, expensive expansion
+                            </td>
+                            <td class="px-6 py-4 text-center border-l border-gray-200">
+                                <i data-lucide="check" class="compare-check w-6 h-6 mx-auto"></i> Instantly scales up or down
+                            </td>
+                        </tr>
+
+                        <!-- Row 3: Cost Model -->
+                        <tr class="hover:bg-gray-50 transition duration-150">
+                            <td class="px-6 py-4 font-medium text-primary-blue/90">Cost Model</td>
+                            <td class="px-6 py-4 text-center">High fixed overhead, Capital Expense</td>
+                            <td class="px-6 py-4 text-center border-l border-gray-200">
+                                <i data-lucide="check" class="compare-check w-6 h-6 mx-auto"></i> Pay-per-use, Operational Expense
+                            </td>
+                        </tr>
+
+                        <!-- Row 4: Technology -->
+                        <tr class="hover:bg-gray-50 transition duration-150">
+                            <td class="px-6 py-4 font-medium text-primary-blue/90">Technology</td>
+                            <td class="px-6 py-4 text-center">Legacy WMS, manual processes</td>
+                            <td class="px-6 py-4 text-center border-l border-gray-200">
+                                <i data-lucide="check" class="compare-check w-6 h-6 mx-auto"></i> WMS, APIs, & AI optimization
+                            </td>
+                        </tr>
+
+                        <!-- Row 5: Entry Barrier -->
+                        <tr class="hover:bg-gray-50 transition duration-150">
+                            <td class="px-6 py-4 font-medium text-primary-blue/90">Entry Barrier</td>
+                            <td class="px-6 py-4 text-center">High (CapEx + Setup)</td>
+                            <td class="px-6 py-4 text-center border-l border-gray-200">
+                                <i data-lucide="check" class="compare-check w-6 h-6 mx-auto"></i> Low & Rapid Activation
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CTA Strip -->
+    <section id="contact" class="py-24 bg-primary-blue/5">
+        <div class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-primary-blue mb-6">
+                Need help choosing the right solution?
+            </h3>
+            <p class="text-lg text-gray-600 mb-8 font-light">
+                Our experts specialize in tailoring scalable logistics frameworks to meet your unique business needs and growth trajectory.
+            </p>
+            <button class="bg-accent-green text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl hover:bg-green-600 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-accent-green/50">
+                Talk to a Supply Chain Expert
+            </button>
+        </div>
+    </section>
+
+    <!-- Minimal Footer -->
+    <footer class="py-8 border-t border-gray-100">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-gray-400 text-sm">
+            &copy; 2025 We Handle It. All rights reserved. | Privacy Policy | Terms of Service
+        </div>
+    </footer>
+
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // JavaScript for Accordion Functionality
+        function toggleAccordion(id) {
+            const contentId = id + '-details';
+            const content = document.getElementById(contentId);
+            const item = document.querySelector(`[data-target="${contentId}"]`);
+
+            // FIX: Gracefully exit if the detailed accordion content or its header item is not yet implemented (i.e., null)
+            if (!content || !item) {
+                // If a card is clicked without a matching detailed section, we simply ignore the toggle.
+                return;
+            }
+
+            const icon = item.querySelector('i[data-lucide="chevron-down"]');
+
+            // Close all other accordions
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c.id !== contentId && c.classList.contains('active')) {
+                    c.classList.remove('active');
+                    const otherItem = document.querySelector(`[data-target="${c.id}"]`);
+                    
+                    // Safety check for otherItem before querying icon
+                    if (otherItem) {
+                        const otherIcon = otherItem.querySelector('i[data-lucide="chevron-down"]');
+                        if (otherIcon) {
+                            otherIcon.classList.remove('rotate-180');
+                        }
+                    }
+                    
+                    // Remove temporary highlight from grid card (safety check added)
+                    const gridCard = document.getElementById(c.id.replace('-details', '-card'));
+                    if (gridCard) {
+                        gridCard.classList.remove('border-accent-green');
+                    }
+                }
+            });
+
+            // Toggle current accordion
+            content.classList.toggle('active');
+            icon.classList.toggle('rotate-180');
+
+            // Add/Remove accent border to the associated grid card
+            const gridCard = document.getElementById(id + '-card');
+            if (gridCard) {
+                if (content.classList.contains('active')) {
+                    gridCard.classList.add('border-accent-green');
+                    // Scroll to the content if it opens
+                    content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    gridCard.classList.remove('border-accent-green');
+                }
+            }
+        }
+        
+        // Ensure initial rendering of one detailed section is closed
+        document.addEventListener('DOMContentLoaded', () => {
+            // Re-render icons after DOM is loaded
+            lucide.createIcons();
+            // Optional: Open one detail section by default for demonstration
+            // Call toggleAccordion safely
+            if (document.getElementById('ecommerce-details')) {
+                toggleAccordion('ecommerce'); 
+            }
+        });
+
+        // Set initial state of accordion icons
+        document.querySelectorAll('.service-accordion-item').forEach(item => {
+            const contentId = item.getAttribute('data-target');
+            const content = document.getElementById(contentId);
+            const icon = item.querySelector('i[data-lucide="chevron-down"]');
+            
+            if (content && content.classList.contains('active')) {
+                icon.classList.add('rotate-180');
+                // Add initial highlight to the associated grid card
+                const gridCard = document.getElementById(contentId.replace('-details', '-card'));
+                if(gridCard) {
+                     gridCard.classList.add('border-accent-green');
+                }
+            }
+            // Attach the click handler
+            item.onclick = () => toggleAccordion(item.getAttribute('data-target').replace('-details', ''));
+        });
+
+    </script>
+</body>
+</html>
